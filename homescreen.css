@@ -1,124 +1,157 @@
 
 .main-border{
-
-  height: 100%;
-  width: 100%;
-  background-color: gray; /* #F2F2F2*/
+  height: 98%;
+  width: 99%;
+  background-color: #f2f2f2;
   border-radius: 25px;
   position: absolute;
-  object-fit: contain;
-  /* margin-top: 25px;
-  margin-bottom: 25px;
-  margin-left: 25px;
-  margin-right: 25px; */
   display: grid;
-
-}
-
-.logoImage{
-  display: none;
-
-}
-
-.google-map {
-  /* Removed absolute positioning */
-  width: 100%;
-  height: 60vh;
   display: flex;
-  justify-content: center;
-  margin-top: 50px;
 }
 
-.google-map iframe {
-  height: 100%;
-  width: 90vw;
-  border-style: solid;
-  border-color: black;
-  border-radius: 15px;
-}
-
-.information-border{
-  width: 100%;
+#logo{
+  padding-left: 10%;
+  width: 80%;
 }
 
 
-form {
-  display: grid;
-  grid-template-columns: repeat(2, auto); /* Two columns with equal width */
-  gap: 8px; /* Gap between grid items */
-  width: 100vw;
-  justify-content: center; /* Center the form horizontally */
-  align-items: center; /* Center the form vertically */
-  
+.left-column {
+  width: 20%;
+  padding: 20px;
+  box-sizing: border-box;
 }
 
-.form-field {
+.right-column {
+  width: 79%;
   text-align: center;
-  padding: 10px 0;
-  height: auto;
 }
 
-input[type="text"],
-.search {
-  width: 100%;
-  padding: 20px 30px; /* Increase padding as needed */
-  font-size: 18px; /* Increase font size as needed */
-  height: 60px; /* Increase height as needed */
-  box-sizing: border-box; /* Include padding in width calculation */
+.input-field-lat {
+  position: relative;
+  margin-bottom: 20px;
 }
 
-/* Add a bottom border to specific input fields */
-#lat, #lon, #rssiID, #csum {
-  border-bottom: 2px solid blue;
+.input-field-lat input[type="text"] {
+  border-radius: 5px; /* Adjust the radius as needed */
+  padding: 10px 10px 10px 75px; /* Add padding for better appearance */
+  width: 235px;
+  border: none;
+  border-bottom: 1px solid black; /* Add a bottom border with your desired color */  
+}
+.input-field-lat label {
+  position: absolute;
+  top: 25%;
+  left: 10px;
+  font-size: 15px;
+  color: #333;
+  pointer-events: none;
+  font-weight: bolder;
 }
 
-.buttons-container {
+.input-field-long {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-field-long input[type="text"] {
+  border-radius: 5px; /* Adjust the radius as needed */
+  padding: 10px 10px 10px 85px; /* Add padding for better appearance */
+  width: 225px;
+  border: none;
+  border-bottom: 1px solid black; /* Add a bottom border with your desired color */  
+}
+.input-field-long label {
+  position: absolute;
+  top: 25%;
+  left: 10px;
+  font-size: 15px;
+  color: #333;
+  pointer-events: none;
+  font-weight: bolder;
+}
+
+.input-field-rssi {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-field-rssi input[type="text"] {
+  border-radius: 5px; /* Adjust the radius as needed */
+  padding: 10px 10px 10px 55px; /* Add padding for better appearance */
+  width: 255px;
+  border: none;
+  border-bottom: 1px solid black; /* Add a bottom border with your desired color */  
+}
+.input-field-rssi label {
+  position: absolute;
+  top: 25%;
+  left: 10px;
+  font-size: 15px;
+  color: #333;
+  pointer-events: none;
+  font-weight: bolder;
+}
+
+.input-field-csum {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-field-csum input[type="text"] {
+  border-radius: 5px; /* Adjust the radius as needed */
+  padding: 10px 10px 10px 105px; /* Add padding for better appearance */
+  width: 205px;
+  border: none;
+  border-bottom: 1px solid black; /* Add a bottom border with your desired color */  
+}
+.input-field-csum label {
+  position: absolute;
+  top: 25%;
+  left: 10px;
+  font-size: 15px;
+  color: #333;
+  pointer-events: none;
+  font-weight: bolder;
+}
+
+.input-field input[type="text"]::placeholder {
+  font-weight: bolder;
+  color: black;
+}
+
+.button-container {
   display: flex;
-  gap: 8px;
-  justify-content: center; /* Center children horizontally */
-  align-items: center; /* Center children vertically */
-  width: 90vw;
-  object-fit: contain;
-  flex-direction: row;
+  justify-content: center; /* Horizontally center the button */
+  align-items: center; /* Vertically center the button */
 }
 
-.buttons {
-
-  width: 100%; /* Make the buttons fill the grid cells */
-  padding: 20px 30px; /* Adjust padding as needed */
-  font-size: 18px; /* Adjust font size as needed */
-  height: 60px; /* Adjust height as needed */
-  box-sizing: border-box; /* Include padding in width calculation */
-
-}
-
-.button1 {
-  background-color: white; 
-  color: black; 
-  border: 2px solid #4CAF50;
-  width: 50%;
-}
-
-.button1:hover {
-  background-color: #4CAF50;
+.locate-button{
+  padding: 15px 20px;
+  border-radius: 10px;
+  background-color: #110e59;
   color: white;
+  border: none;
+  cursor: pointer; /* Set the cursor to a pointer */
+  transition: background-color 0.3s;
+}
+.locate-button:hover {
+  background-color: white; /* Change the background color on hover */
+  color: #110e59; /* Change the text color on hover */
+  border: 2px solid #110e59; /* Add a border on hover */
 }
 
-.button2 {
-  background-color: white; 
-  color: black; 
-  border: 2px solid #008CBA;
-  width: 30%;
-}
-
-
-.button2:hover {
-  background-color: #008CBA;
-  color: white;
-}
-
-
-@media only screen and (min-width: 375px) {
-
+.google-map{
+  margin-top: 2.5%;
+  width: 100%;
+  height: 95%; /* Set the desired height */
   
 }
+
+#map-iframe {
+  width: 100%;
+  height: 100%;
+  border-radius: 25px;
+}
+
+
+

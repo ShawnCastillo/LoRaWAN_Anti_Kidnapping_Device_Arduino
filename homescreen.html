@@ -3,55 +3,40 @@
 <head>
     <title>Web Application LoRaWAN</title>
     <link rel="stylesheet" href="homescreen.css" />
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBNoMw2eDTMF1z5WpFs3dPyDtkQtm9wh2A&callback=initMap" async defer></script>
+
 </head>
 <body>
     <header>
     </header>
     <main>
         <div class="main-border">
-
-
-            <div class="google-map">
-                <!-- Your Google Maps iframe goes here -->
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3860.8608601214796!2d120.99058490000002!3d14.564764199999998!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3397c97ed286459b%3A0x5927068d997eae2a!2sDe%20La%20Salle%20University%20Manila!5e0!3m2!1sen!2sph!4v1631296289433!5m2!1sen!2sph" width="600" height="450" allowfullscreen="" loading="lazy"></iframe>
-
-            </div>
-
-            <div class="information-border">
-                <form>
-                    <div class="form-field">
-                        <label for="searchLocation">Search:</label>
-                        <input type="search" class="search" name="searchLocation" placeholder="Search..">
-                    </div>
-                    <div class="form-field">
-                        <label for="location">Location:</label>
-                        <input type="text" name="location" placeholder="Location..">
-                    </div>
-                    <div class="form-field">            
-                        <label for="lat">Latitude:</label>
-                        <input type="text" name="latitude" id="lat" placeholder="Latitude:">
-                    </div>
-                    <div class="form-field">
-                        <label for="lon">Longitude:</label>
-                        <input type="text" name="longitude" id="lon" placeholder="Longitude:">
-                    </div>
-                    <div class="form-field">
-                        <label for="rssiID">RSSI:</label>
-                        <input type="text" name="rssi" id="rssiID" placeholder="RSSI:">
-                    </div>
-                    <div class="form-field">
-                        <label for="csumError">CSUM Error:</label>
-                        <input type="text" name="csumError" id="csum" placeholder="CSUM Error:"> 
-                    </div>
-                </form>
-
-                <div class="buttons-container">
-                    <button class="buttons button1">Locate my Location</button>
-                    <button class="buttons button2">Cancel</button>
+            <div class="left-column">
+                <img src="Logo.png" alt="Image" id="logo">
+                <div class="input-field-lat">
+                    <input type="text" id="latitudeInput" placeholder=" ">
+                    <label for="latitudeInput">Latitude:</label>
+                </div>
+                <div class="input-field-long">
+                    <input type="text" id="longitudeInput" placeholder=" ">
+                    <label for="longitudeInput">Longitude:</label>
+                </div>
+                <div class="input-field-rssi">
+                    <input type="text" id="rssiInput" placeholder=" ">
+                    <label for="rssiInput">RSSI:</label>
+                </div>
+                <div class="input-field-csum">
+                    <input type="text" id="csumErrorInput" placeholder=" ">
+                    <label for="csumErrorInput">CSUM Error:</label>
+                </div>
+                <div class="button-container">
+                    <button class="locate-button" id="locateButton">Find Device Location</button>
                 </div>
             </div>
-
-        
+            <div class="right-column">
+                <div class="google-map" id="map-container">
+                </div>
+            </div>
         </div>
     </main>
     <footer>
