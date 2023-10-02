@@ -126,6 +126,7 @@
 }
 
 .locate-button{
+  margin-right: 20px;
   padding: 15px 20px;
   border-radius: 10px;
   background-color: #110e59;
@@ -138,6 +139,21 @@
   background-color: white; /* Change the background color on hover */
   color: #110e59; /* Change the text color on hover */
   border: 2px solid #110e59; /* Add a border on hover */
+}
+
+.reset-button{
+  padding: 15px 20px;
+  border-radius: 10px;
+  background-color: gray;
+  color: white;
+  border: none;
+  cursor: pointer; /* Set the cursor to a pointer */
+  transition: background-color 0.3s;
+}
+.reset-button:hover {
+  background-color: white; /* Change the background color on hover */
+  color: #110e59; /* Change the text color on hover */
+  border: 2px solid gray; /* Add a border on hover */
 }
 
 .google-map{
