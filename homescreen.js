@@ -26,7 +26,8 @@ function openNav() {
   allowNumbersOnly(rssiInput);
   allowNumbersOnly(csumErrorInput);
 
-
+  const markers = [];
+  
   function initMap() {
     // Initial coordinates (default map center)
     const initialCoordinates = { lat: 14.56516743474788, lng: 120.99321086784676 }; // Default is Henry Sy bldg. in DLSU
@@ -40,23 +41,24 @@ function openNav() {
     // Define a marker variable (we'll use it to display the device location)
     let deviceMarker;
   
+    // Array to store markers
+
+
     // Function to set the marker at a specific location
     function setDeviceLocation(latitude, longitude) {
-      // Check if a marker already exists; if so, remove it
-      if (deviceMarker) {
-        deviceMarker.setMap(null);
-      }
-    
-      // Create a marker at the specified coordinates
-      deviceMarker = new google.maps.Marker({
-        position: { lat: parseFloat(latitude), lng: parseFloat(longitude) },
-        map: map,
-        title: 'Device Location',
-      });
-    
-      // Center the map on the new marker's position and zoom in
-      map.setCenter(deviceMarker.getPosition());
-      map.setZoom(15); // Adjust the zoom level as needed
+        // Create a marker at the specified coordinates
+        const marker = new google.maps.Marker({
+            position: { lat: parseFloat(latitude), lng: parseFloat(longitude) },
+            map: map,
+            title: 'Device Location',
+        });
+
+        // Center the map on the new marker's position and zoom in
+        map.setCenter(marker.getPosition());
+        map.setZoom(18); // Adjust the zoom level as needed
+
+        // Add the marker to the markers array
+        markers.push(marker);
     }
   
     // Add an event listener to the "Locate My Device" button
@@ -67,17 +69,34 @@ function openNav() {
   
       // Check if both latitude and longitude are provided
       if (latitude && longitude) {
-        // Set the device location on the map
-        setDeviceLocation(latitude, longitude);
+          // Set the device location on the map
+          setDeviceLocation(latitude, longitude);
       } else {
-        // Show an alert if either latitude or longitude is missing
-        alert('Please enter both latitude and longitude.');
+          // Show an alert if either latitude or longitude is missing
+          alert('Please enter both latitude and longitude.');
       }
-    });
+  });
   }
   
   // Add an event listener to initialize the map when the page loads
   document.addEventListener('DOMContentLoaded', function() {
     initMap();
   });
+
+  // Function to remove all markers from the map
+function resetMarkers() {
+  // Loop through all markers and remove them from the map
+  markers.forEach(function(marker) {
+      marker.setMap(null);
+  });
+
+  // Clear the markers array
+  markers.length = 0;
+}
+
+// Add an event listener to the "Reset" button
+document.getElementById('resetButton').addEventListener('click', function() {
+  // Call the resetMarkers function to remove all markers
+  resetMarkers();
+});
   
