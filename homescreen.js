@@ -1,31 +1,9 @@
-function openNav() {
-    document.getElementById("mySidenav").style.width = "250px";
-  }
-  
-  function closeNav() {
-    document.getElementById("mySidenav").style.width = "0";
-  }
-  
-  document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function() {
     initMap();
   });
   
   const latitudeInput = document.getElementById('latitudeInput');
   const longitudeInput = document.getElementById('longitudeInput');
-  const rssiInput = document.getElementById('rssiInput');
-  const csumErrorInput = document.getElementById('csumErrorInput');
-  
-  const allowNumbersOnly = (inputElement) => {
-      inputElement.addEventListener('input', function() {
-          this.value = this.value.replace(/[^0-9.]/g, ''); // Allow numbers and dots
-      });
-  };
-  
-  allowNumbersOnly(latitudeInput);
-  allowNumbersOnly(longitudeInput);
-  allowNumbersOnly(rssiInput);
-  allowNumbersOnly(csumErrorInput);
-  
   
     // Define the Google Maps map and markers variables here for global access
 let map;
@@ -52,9 +30,6 @@ const Sensor1GetRequestFromTagIO = () => {
         const coordinates = locationData.value.split('|').map(coord => parseFloat(coord.trim()));
         const [latitude, longitude] = coordinates;
 
-        console.log("Latitude of Node 1: ", latitude);
-        console.log("Longitude of Node 1: ", longitude);
-
         // Set the latitude and longitude values to the input fields
         const latitudeInput = document.getElementById('latitudeInput');
         const longitudeInput = document.getElementById('longitudeInput');
@@ -74,15 +49,12 @@ const Sensor1GetRequestFromTagIO = () => {
 
 const interval = 5000; // 5 seconds in milliseconds
 
-const fetchDataPeriodically = () => {
-  Sensor1GetRequestFromTagIO();
-};
 
 // Execute the fetchDataPeriodically function initially when the page loads
-document.addEventListener('DOMContentLoaded', fetchDataPeriodically);
+document.addEventListener('DOMContentLoaded', Sensor1GetRequestFromTagIO);
 
 // Set an interval to execute the function every 20 seconds
-setInterval(fetchDataPeriodically, interval);
+setInterval(Sensor1GetRequestFromTagIO, interval);
 
 // Initialize the map
 function initMap() {
