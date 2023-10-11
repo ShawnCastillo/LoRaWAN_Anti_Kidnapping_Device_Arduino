@@ -1,69 +1,117 @@
-$(document).ready(function() {
-  // Function to open the side navigation
-  function openNav() {
-      $("#mySidenav").css("width", "250px");
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
   }
-
-  // Function to close the side navigation
+  
   function closeNav() {
-      $("#mySidenav").css("width", "0");
+    document.getElementById("mySidenav").style.width = "0";
   }
-
-  // Initialize Google Maps on document ready
-  function initMap() {
-      const initialCoordinates = { lat: 14.56516743474788, lng: 120.99321086784676 };
-      const map = new google.maps.Map($("#map-container")[0], {
-          zoom: 18,
-          center: initialCoordinates
+  
+  document.addEventListener('DOMContentLoaded', function() {
+    initMap();
+  });
+  
+  const latitudeInput = document.getElementById('latitudeInput');
+  const longitudeInput = document.getElementById('longitudeInput');
+  const rssiInput = document.getElementById('rssiInput');
+  const csumErrorInput = document.getElementById('csumErrorInput');
+  
+  const allowNumbersOnly = (inputElement) => {
+      inputElement.addEventListener('input', function() {
+          this.value = this.value.replace(/[^0-9.]/g, ''); // Allow numbers and dots
       });
+  };
+  
+  allowNumbersOnly(latitudeInput);
+  allowNumbersOnly(longitudeInput);
+  allowNumbersOnly(rssiInput);
+  allowNumbersOnly(csumErrorInput);
+  
+  
+    // Define the Google Maps map and markers variables here for global access
+let map;
+let deviceMarker;
 
-      let deviceMarker;
-      const markers = [];
+const Sensor1GetRequestFromTagIO = () => {
+  const url = 'https://api.tago.io/data?variable=message';
+  const deviceToken = 'b5a683dc-6710-42d8-b070-9a6d462ae61d'; 
 
-      function setDeviceLocation(latitude, longitude) {
-          const labelText = `Lat: ${parseFloat(latitude).toFixed(5)}, Lng: ${parseFloat(longitude).toFixed(5)}`;
-          const marker = new google.maps.Marker({
-              position: { lat: parseFloat(latitude), lng: parseFloat(longitude) },
-              map: map,
-              title: labelText
-          });
+  const headers = new Headers({
+    'Authorization': deviceToken
+  });
 
-          map.setCenter(marker.getPosition());
-          map.setZoom(18);
-          markers.push(marker);
+  const requestOptions = {
+    method: 'GET',
+    headers: headers
+  };
+
+  return fetch(url, requestOptions)
+    .then(response => response.json())
+    .then(json => {
+      const locationData = json.result.find(item => item.variable === 'message');
+      if (locationData && locationData.value) {
+        const coordinates = locationData.value.split('|').map(coord => parseFloat(coord.trim()));
+        const [latitude, longitude] = coordinates;
+
+        console.log("Latitude of Node 1: ", latitude);
+        console.log("Longitude of Node 1: ", longitude);
+
+        // Set the latitude and longitude values to the input fields
+        const latitudeInput = document.getElementById('latitudeInput');
+        const longitudeInput = document.getElementById('longitudeInput');
+        latitudeInput.value = latitude;
+        longitudeInput.value = longitude;
+
+        // Call the setDeviceLocation function to update the map
+        setDeviceLocation(latitude, longitude);
       }
 
-      $("#locateButton").click(function() {
-          const latitude = $("#latitudeInput").val();
-          const longitude = $("#longitudeInput").val();
+      return null;
+    })
+    .catch(error => {
+      console.error("Node 1 has an error: " + error);
+    });
+};
 
-          if (latitude && longitude) {
-              setDeviceLocation(latitude, longitude);
-          } else {
-              alert('Please enter both latitude and longitude.');
-          }
-      });
+const interval = 5000; // 5 seconds in milliseconds
 
-      $("#resetButton").click(function() {
-          markers.forEach(function(marker) {
-              marker.setMap(null);
-          });
+const fetchDataPeriodically = () => {
+  Sensor1GetRequestFromTagIO();
+};
 
-          markers.length = 0;
-      });
+// Execute the fetchDataPeriodically function initially when the page loads
+document.addEventListener('DOMContentLoaded', fetchDataPeriodically);
+
+// Set an interval to execute the function every 20 seconds
+setInterval(fetchDataPeriodically, interval);
+
+// Initialize the map
+function initMap() {
+  const initialCoordinates = { lat: 14.56516743474788, lng: 120.99321086784676 };
+  map = new google.maps.Map(document.getElementById('map-container'), {
+    zoom: 18,
+    center: initialCoordinates,
+  });
+}
+
+// Function to set the marker at a specific location
+function setDeviceLocation(latitude, longitude) {
+  // Create a formatted label text with 5 decimal points
+  const labelText = `Lat: ${parseFloat(latitude).toFixed(5)}, Lng: ${parseFloat(longitude).toFixed(5)}`;
+
+  // Remove the previous marker, if it exists
+  if (deviceMarker) {
+    deviceMarker.setMap(null);
   }
 
-  initMap();
+  // Create a new marker at the specified coordinates with the label
+  deviceMarker = new google.maps.Marker({
+    position: { lat: parseFloat(latitude), lng: parseFloat(longitude) },
+    map: map,
+    title: labelText,
+  });
 
-  // Allow numbers and dots only in input fields
-  function allowNumbersOnly(inputElement) {
-      inputElement.on('input', function() {
-          this.value = this.value.replace(/[^0-9.]/g, '');
-      });
-  }
+  // Center the map on the new marker's position
+  map.setCenter(deviceMarker.getPosition());
+}
 
-  allowNumbersOnly($("#latitudeInput"));
-  allowNumbersOnly($("#longitudeInput"));
-  allowNumbersOnly($("#rssiInput"));
-  allowNumbersOnly($("#csumErrorInput"));
-});
+  
