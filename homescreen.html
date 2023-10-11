@@ -15,11 +15,11 @@
             <div class="left-column">
                 <img src="Logo.png" alt="Image" id="logo">
                 <div class="input-field-lat">
-                    <input type="text" id="latitudeInput" placeholder=" ">
+                    <input type="text" id="latitudeInput" placeholder=" " readonly>
                     <label for="latitudeInput">Latitude:</label>
                 </div>
                 <div class="input-field-long">
-                    <input type="text" id="longitudeInput" placeholder=" ">
+                    <input type="text" id="longitudeInput" placeholder=" " readonly>
                     <label for="longitudeInput">Longitude:</label>
                 </div>
                 <div class="input-field-rssi">
@@ -30,10 +30,7 @@
                     <input type="text" id="csumErrorInput" placeholder=" "readonly>
                     <label for="csumErrorInput">CSUM Error:</label>
                 </div>
-                <div class="button-container">
-                    <button class="locate-button" id="locateButton">Find Device Location</button>
-                    <button class="reset-button" id="resetButton">Reset</button>
-                </div>
+                
             </div>
             <div class="right-column">
                 <div class="google-map" id="map-container">
